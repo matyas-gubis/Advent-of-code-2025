@@ -1,0 +1,8 @@
+import { Day06Solver } from './day-06';
+
+const solver = new Day06Solver();
+const processed = await solver.processFile('day-06/input.txt');
+const solution1 = solver.solvePartOne(processed);
+const solution2 = solver.solvePartTwo(processed);
+console.log(solution1);
+console.log(solution2);
