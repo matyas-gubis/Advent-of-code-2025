@@ -1,0 +1,4 @@
+Get the digits of the number
+cut the digits into X pieces
+compare each pice to the first peace
+if all the peaces match add the number to the sum
