@@ -54,32 +54,17 @@ export class Day05Solver {
     }
 
     private mergeRanges(ranges: Range[]): Range[] {
-        const sortedRanges = ranges.sort((a, b) => a.end - b.end).sort((a, b) => a.start - b.start);
-        console.log(sortedRanges);
-        for (let i = sortedRanges.length - 1; i >= 0; i--) {
-            console.log(sortedRanges.length);
-            for (let j = i - 1; j >= 0; j--) {
-                if (!sortedRanges[j] || !sortedRanges[j]) {
-                    console.log(`skipping ${j}`);
-                    continue;
-                }
-                const compareTo = sortedRanges[i];
-                const compareAgainst = sortedRanges[j];
-                console.log(
-                    `comparing ${compareTo?.start}-${compareTo?.end} to ${compareAgainst?.start}-${compareAgainst?.end}`
-                );
-                if (!compareTo || !compareAgainst) {
-                    throw Error(`invalid input at ${i} ${j}`);
-                }
-
-                if (compareTo.start <= compareAgainst.end && compareTo.start >= compareAgainst.start) {
-                    compareTo.start = compareAgainst.start;
-                    sortedRanges.splice(j, 1);
-                    break;
-                }
+        ranges.sort((a, b) => a.start - b.start);
+        const merged: Array<Range> = [];
+        for (const range of ranges) {
+            const lastMerged = merged[merged.length - 1];
+            if (merged.length === 0 || (lastMerged && lastMerged.end < range.start - 1)) {
+                merged.push({ ...range });
+            } else if (lastMerged) {
+                lastMerged.end = Math.max(lastMerged.end, range.end);
             }
         }
-        return sortedRanges;
+        return merged;
     }
 
     isIngredientFresh(ranges: Array<Range>, id: number): boolean {
