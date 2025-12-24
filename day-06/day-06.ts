@@ -37,20 +37,25 @@ export class Day06Solver {
 
     solvePartTwo(lines: string[]): number {
         const operations: string[] = [];
+        const lastLineIndex = lines.length - 1;
+        for (let i = lines[lastLineIndex]!.length - 1; i >= 0; i--) {
+            if (lines[lastLineIndex]![i] !== ' ') {
+                operations.push(lines[lastLineIndex]![i]!);
+            }
+        }
+
         const numbers: string[] = [];
-        for (let i = lines.length - 1; i >= 0; i--) {
+        for (let i = 0; i < lines.length - 1; i++) {
             for (let j = lines[i]!.length - 1; j >= 0; j--) {
-                if (i === lines.length - 1 && lines[i]![j] !== ' ') {
-                    operations.push(lines[i]![j]!);
-                } else if (i !== lines.length - 1 && !numbers[lines[i]!.length - j - 1]) {
+                if (!numbers[lines[i]!.length - j - 1]) {
                     numbers[lines[i]!.length - j - 1]! = lines[i]![j]!;
-                } else if (i !== lines.length - 1) {
+                } else {
                     numbers[lines[i]!.length - j - 1]! += lines[i]![j]!;
                 }
             }
         }
         console.log(numbers);
-        const nums = numbers.map((n) => Number(n.split('').reverse().join('')));
+        const nums = numbers.map((n) => Number(n));
         console.log(nums);
         const sums: number[] = operations.map((o) => (o === '*' ? 1 : 0));
         let operationIndex = 0;
