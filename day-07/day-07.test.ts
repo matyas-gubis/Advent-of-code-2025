@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'bun:test';
-import { Day06Solver } from './day-06';
+import { Day07Solver } from './day-07';
 
-describe('Day 6 solutions', () => {
-    const solver = new Day06Solver();
+describe('Day 7 solutions', () => {
+    const solver = new Day07Solver();
     test('should process example file', async () => {
         const processed = await solver.processFile('day-06/example.txt');
         expect(processed).toEqual(['123 328  51 64 ', ' 45 64  387 23 ', '  6 98  215 314', '*   +   *   +  ']);
