@@ -8,8 +8,9 @@ type Distance = {
 
 export class Day08Solver {
     async processFile(path: string): Promise<Node[]> {
-        const file = Bun.file(path);
-        const text = await file.text();
+        const text = typeof Bun !== 'undefined' 
+            ? await Bun.file(path).text()
+            : await fetch(path).then(r => r.text());
         const rows = text.split('\n').map((l) => l.trim());
         return rows.map((r) => {
             const [x, y, z] = r.split(',').map((a) => parseInt(a));
