@@ -45,8 +45,8 @@ describe('Day 8 solutions', () => {
     });
 
     test('should solve example input for part 2', async () => {
-        const lines = await solver.processFile('day-08/example.txt');
-        const solution = solver.solvePartTwo(lines);
-        expect(solution).toEqual(0);
+        const nodes = await solver.processFile('day-08/example.txt');
+        const solution = solver.solvePartTwo(nodes);
+        expect(solution).toEqual(25272);
     });
 });

@@ -79,7 +79,22 @@ export class Day08Solver {
         return distinctCircuits[0]!.length * distinctCircuits[1]!.length * distinctCircuits[2]!.length;
     }
 
+    createConnectionsUntilAllConnect(nodes: Node[]): Distance {
+        const distances = this.getDistances(nodes);
+        for (let i = 0; i < distances.length; i++) {
+            const d = distances[i]!;
+            if (!d.start.isInSameCircuit(d.end)) {
+                d.start.addNeighbour(d.end);
+            }
+            if (d.start.bfs().length === nodes.length) {
+                return d;
+            }
+        }
+        return distances[distances.length - 1]!;
+    }
+
     solvePartTwo(nodes: Node[]): number {
-        return 0;
+        const lastConnections = this.createConnectionsUntilAllConnect(nodes);
+        return lastConnections.start.x * lastConnections.end.x;
     }
 }
